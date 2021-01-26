@@ -6,7 +6,7 @@ name: 百度极速版
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*/26 6-23 * * *'
+     - cron: '*/30 7-23 * * *'
   watch:
     types: started
 jobs:
@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Checkout
         run: |
-          git clone https://github.com/jiuli12/MyAction.git ~/MyAction
+          git clone https://github.com/jiuli12/baiduAction.git ~/baiduAction
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
@@ -26,19 +26,12 @@ jobs:
       - name: npm install
         if: env.BAIDU_COOKIE
         run: |
-          cd ~/MyAction
+          cd ~/baiduAction
           npm install
       - name: '运行 【百度极速版】'
         if: env.BAIDU_COOKIE
         run: |
-          cd ~/MyAction
+          cd ~/baiduAction
           node baidu_speed.js
         env:
-          
-          PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
-          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-          TG_USER_ID: ${{ secrets.TG_USER_ID }}
-          BARK_SOUND: ${{ secrets.BARK_SOUND }}
-          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
-          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
